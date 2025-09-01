@@ -12,7 +12,7 @@ fi
 echo "--- Starting deployment for ${SERVICE_NAME} ---"
 
 echo "Activating virtualenv..."
-python3 -m venv venv
+python3 -m venv .venv
 source venv/bin/activate
 
 echo "Installing/updating python dependencies..."
