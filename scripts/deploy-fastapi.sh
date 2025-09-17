@@ -39,4 +39,4 @@ echo "Checking $SERVICE_NAME status..."
 sleep 1
 sudo /usr/bin/systemctl status "$SERVICE_NAME" --no-pager
 
-echo "--- Deployed $SERVICE_NAME ---
+echo "--- Deployed $SERVICE_NAME ---"
