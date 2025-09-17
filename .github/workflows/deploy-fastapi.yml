@@ -67,6 +67,8 @@ jobs:
             --exclude '.git*' \
             --exclude '.github*' \
             --exclude '.venv' \
+            --exclude '__pycache__' \
+            --exclude '*.pyc' \
             ./app/ ${{ inputs.lxc_user }}@${{ secrets.LXC_HOST }}:${{ inputs.app_dir }}
 
       - name: Execute deploy script
