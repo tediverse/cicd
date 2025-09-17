@@ -51,7 +51,9 @@ jobs:
           ssh-keyscan -H ${{ secrets.LXC_HOST }} >> ~/.ssh/known_hosts
 
       - name: Copy .env (if exists)
-        if: ${{ secrets.ENV_FILE != '' }}
+        env:
+          ENV_FILE_CONTENT: ${{ secrets.ENV_FILE }}
+        if: env.ENV_FILE_CONTENT != ''
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env
           rsync -avz .env ${{ inputs.lxc_user }}@${{ secrets.LXC_HOST }}:${{ inputs.app_dir }}/.env
