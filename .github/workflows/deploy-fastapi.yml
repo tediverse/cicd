@@ -54,7 +54,7 @@ jobs:
     if: ${{ always() && (inputs.run_tests == 'false' || needs.test.result == 'success') }}
 
     env:
-      SSH_KEY_PATH: ~/.ssh/gh_runner
+      KEY_PATH: /home/runner/.ssh/gh_runner
 
     steps:
       - name: Checkout app code
@@ -88,12 +88,12 @@ jobs:
 
       - name: Ensure SSH key permissions
         run: |
-          chmod 600 "$SSH_KEY_PATH"
+          chmod 600 "$KEY_PATH"
 
       - name: Rsync app files
         run: |
           rsync -avz --delete \
-            -e "ssh -i $SSH_KEY_PATH" \
+            -e "ssh -i $KEY_PATH" \
             --exclude '.git*' \
             --exclude '.github*' \
             --exclude '.venv' \
@@ -103,7 +103,7 @@ jobs:
 
       - name: Execute deploy script
         run: |
-          ssh -i "$SSH_KEY_PATH" ${{ inputs.lxc_user }}@${{ secrets.LXC_HOST }} \
+          ssh -i "$KEY_PATH" ${{ inputs.lxc_user }}@${{ secrets.LXC_HOST }} \
           "cd ${{ inputs.app_dir }} && \
            SERVICE_NAME='${{ inputs.service_name }}' \
            ALEMBIC_MIGRATE='${{ inputs.alembic_migrate }}' \
